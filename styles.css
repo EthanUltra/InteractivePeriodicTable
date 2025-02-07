@@ -1,0 +1,173 @@
+/* ---------- CSS Variables for Categories ---------- */
+    :root {
+      --alkali-metal:        #ff8a80;
+      --alkaline-earth:      #ff80ab;
+      --transition-metal:    #82b1ff;
+      --post-transition:     #b388ff;
+      --metalloid:           #8c9eff;
+      --nonmetal:            #80d8ff;
+      --noble-gas:           #84ffff;
+      --lanthanide:          #b9f6ca;
+      --actinide:            #69f0ae;
+      --unknown:             #e0e0e0;
+    }
+
+    /* ---------- Basic Global Styles ---------- */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f5f5f5;
+      color: #333;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .search-box {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+    .search-box:focus {
+      outline: none;
+      border-color: #aaa;
+    }
+
+    /* ---------- Periodic Table Grid ---------- */
+    .periodic-table {
+      /* 9 rows (1-7 main, +8 for lanthanides, +9 for actinides),
+         18 columns for groups */
+      display: grid;
+      grid-template-columns: repeat(18, minmax(40px, 1fr));
+      grid-template-rows: repeat(9, minmax(40px, auto));
+      gap: 5px;
+    }
+
+    /* ---------- Element Cells ---------- */
+    .element {
+      position: relative;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      padding: 4px;
+      cursor: pointer;
+      background: #fff;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      /* This keeps each cell roughly square while being responsive */
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    .element:hover {
+      transform: translateY(-3px) scale(1.07);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      z-index: 10;
+      border-color: #999;
+    }
+
+    /* ---------- Coloring by Category ---------- */
+    .element.alkali-metal         { background: var(--alkali-metal); }
+    .element.alkaline-earth       { background: var(--alkaline-earth); }
+    .element.transition-metal     { background: var(--transition-metal); }
+    .element.post-transition      { background: var(--post-transition); }
+    .element.metalloid            { background: var(--metalloid); }
+    .element.nonmetal             { background: var(--nonmetal); }
+    .element.noble-gas            { background: var(--noble-gas); }
+    .element.lanthanide           { background: var(--lanthanide); }
+    .element.actinide             { background: var(--actinide); }
+    .element.unknown              { background: var(--unknown); }
+
+    /* ---------- Element Text Layout ---------- */
+    .atomic-number {
+      font-size: 10px;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      font-weight: bold;
+      color: #333;
+    }
+    .symbol {
+      font-weight: bold;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    /* ---------- Empty Cell (for spacing) ---------- */
+    .empty-cell {
+      aspect-ratio: 1;
+    }
+
+    /* ---------- Legend ---------- */
+    .legend {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+      margin: 20px 0 0;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+    }
+    .legend-color {
+      width: 20px;
+      height: 20px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    /* ---------- Modal ---------- */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 600px;
+      width: 90%;
+      position: relative;
+      animation: modalSlide 0.3s ease-out;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+    @keyframes modalSlide {
+      from { transform: translateY(-50px); opacity: 0; }
+      to   { transform: translateY(0);      opacity: 1; }
+    }
+    .close-button {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      cursor: pointer;
+      font-size: 24px;
+      border: none;
+      background: none;
+      color: var(--text-color);
+      outline: none;
+    }
+    .close-button:hover {
+      color: #f00;
+    }
+
+    /* ---------- Search Hidden ---------- */
+    .element.hidden {
+      display: none;
+    }
